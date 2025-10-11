@@ -56,7 +56,7 @@ export default function App() {
             <Stack.Screen name="Onboarding" component={Onboarding} />
             <Stack.Screen name="Welcome" component={Welcome} />
             <Stack.Screen name="SignIn" component={SignIn} />
-            <Stack.Screen name="SignUp" component={SignUpScreen}/>
+            <Stack.Screen name="SignUp" component={SignUpScreen} options={{headerShown:false}}/>
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaWrapper>

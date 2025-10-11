@@ -1,71 +1,70 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StatusBar } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Ionicons } from '@expo/vector-icons';
+// import React from 'react';
+// import { View, Text, TouchableOpacity } from 'react-native';
+// import { useNavigation } from '@react-navigation/native';
+// import { SafeAreaView } from 'react-native-safe-area-context';
+// import { Ionicons } from '@expo/vector-icons';
 
-const Header = ({ 
-  title, 
-  showBackButton, 
-  rightIcon,
-  onRightIconPress,
-  backgroundColor = '#0066FF'
-}) => {
-  const navigation = useNavigation();
+// const Header = ({
+//   title,
+//   showBackButton,
+//   rightIcon,
+//   onRightIconPress,
+//   backgroundColor = '#0066FF',
+// }) => {
+//   const navigation = useNavigation();
+//   const handleBackPress = () => navigation.goBack();
 
-  const handleBackPress = () => {
-    navigation.goBack();
-  };
+//   return (
+//     <>
+//       {/* REMOVED StatusBar from here */}
+//       <SafeAreaView
+//         edges={['top']}
+//         style={{
+//           backgroundColor,
+//           borderBottomLeftRadius: 16,
+//           borderBottomRightRadius: 16,
+//           overflow: 'hidden',
+//         }}
+//       >
+//         <View className="pb-6 px-4">
+//           <View className="flex-row items-center justify-between">
+//             <View className="w-10">
+//               {showBackButton && (
+//                 <TouchableOpacity
+//                   onPress={handleBackPress}
+//                   className="w-10 h-10 items-center justify-center"
+//                   activeOpacity={0.7}
+//                 >
+//                   <Ionicons name="arrow-back" size={24} color="white" />
+//                 </TouchableOpacity>
+//               )}
+//             </View>
 
-  return (
-    <>
-      <StatusBar barStyle="light-content" backgroundColor={backgroundColor} />
-      <View 
-        className="pt-12 pb-6 px-4 rounded-b-[32px]"
-        style={{ backgroundColor }}
-      >
-        <SafeAreaView edges={['top']}>
-          <View className="flex-row items-center justify-between">
-            {/* Left Side - Back Button */}
-            <View className="w-10">
-              {showBackButton && (
-                <TouchableOpacity
-                  onPress={handleBackPress}
-                  className="w-10 h-10 items-center justify-center"
-                  activeOpacity={0.7}
-                >
-                  <Ionicons name="arrow-back" size={24} color="white" />
-                </TouchableOpacity>
-              )}
-            </View>
+//             {title && (
+//               <Text
+//                 className="text-white text-xl flex-1 text-center"
+//                 style={{ fontFamily: 'Urbanist-Bold' }}
+//               >
+//                 {title}
+//               </Text>
+//             )}
 
-            {/* Center - Title */}
-            {title && (
-              <Text
-                className="text-white text-xl flex-1 text-center"
-                style={{ fontFamily: 'Urbanist-Bold' }}
-              >
-                {title}
-              </Text>
-            )}
+//             <View className="w-10">
+//               {rightIcon && (
+//                 <TouchableOpacity
+//                   onPress={onRightIconPress}
+//                   className="w-10 h-10 items-center justify-center"
+//                   activeOpacity={0.7}
+//                 >
+//                   <Ionicons name={rightIcon} size={24} color="white" />
+//                 </TouchableOpacity>
+//               )}
+//             </View>
+//           </View>
+//         </View>
+//       </SafeAreaView>
+//     </>
+//   );
+// };
 
-            {/* Right Side - Icon */}
-            <View className="w-10">
-              {rightIcon && (
-                <TouchableOpacity
-                  onPress={onRightIconPress}
-                  className="w-10 h-10 items-center justify-center"
-                  activeOpacity={0.7}
-                >
-                  <Ionicons name={rightIcon} size={24} color="white" />
-                </TouchableOpacity>
-              )}
-            </View>
-          </View>
-        </SafeAreaView>
-      </View>
-    </>
-  );
-};
-
-export default Header;
+// export default Header;
