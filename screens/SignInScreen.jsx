@@ -7,7 +7,7 @@ import Svg, { Circle, G } from 'react-native-svg';
 const Header = () => {
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor="#3B82F6" />
+      <StatusBar barStyle="light-content" backgroundColor="#0066FF" />
       <View style={styles.headerContainer}>
         <View style={styles.headerContent}>
           <Text style={styles.headerTitle}>Sign In</Text>
@@ -86,7 +86,7 @@ const CircularProgress = ({ size = 120, strokeWidth = 4, duration = 2000 }) => {
         cx={x}
         cy={y}
         r={strokeWidth / 2}
-        fill="#3B82F6"
+        fill="#0066FF"
       />
     );
   }
@@ -395,9 +395,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F5F5F5',
   },
-  // Header Styles
+  // Header Styles - Updated to #0066FF
   blueHeader: {
-    backgroundColor: '#3B82F6',
+    backgroundColor: '#0066FF',
     paddingTop: 50,
     paddingBottom: 30,
     borderBottomLeftRadius: 40,
@@ -481,15 +481,15 @@ const styles = StyleSheet.create({
     height: 24,
     borderRadius: 6,
     borderWidth: 2.5,
-    borderColor: '#3B82F6',
+    borderColor: '#0066FF',
     marginRight: 12,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
   },
   checkboxChecked: {
-    backgroundColor: '#3B82F6',
-    borderColor: '#3B82F6',
+    backgroundColor: '#0066FF',
+    borderColor: '#0066FF',
   },
   checkboxLabel: {
     fontSize: 15,
@@ -503,7 +503,7 @@ const styles = StyleSheet.create({
   },
   forgotPassword: {
     fontSize: 15,
-    color: '#3B82F6',
+    color: '#0066FF',
     fontWeight: '600',
   },
   // Sign Up
@@ -518,7 +518,7 @@ const styles = StyleSheet.create({
   },
   signupLink: {
     fontSize: 15,
-    color: '#3B82F6',
+    color: '#0066FF',
     fontWeight: '600',
   },
   // Divider
@@ -561,18 +561,18 @@ const styles = StyleSheet.create({
   },
   // Sign In Button
   signInButton: {
-    backgroundColor: '#3B82F6',
+    backgroundColor: '#0066FF',
     paddingVertical: 18,
     borderRadius: 14,
     alignItems: 'center',
-    shadowColor: '#3B82F6',
+    shadowColor: '#0066FF',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,
     elevation: 4,
   },
   signInButtonDisabled: {
-    backgroundColor: '#93C5FD',
+    backgroundColor: '#66A3FF',
   },
   signInButtonText: {
     color: '#FFFFFF',

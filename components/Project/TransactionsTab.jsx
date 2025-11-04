@@ -1,369 +1,292 @@
-
-import React, { useState } from 'react';
+import React from "react";
 import {
   View,
   Text,
-  ScrollView,
-  StyleSheet,
-  SafeAreaView,
   TouchableOpacity,
+  ScrollView,
   StatusBar,
-  FlatList,
-} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-
-const COLORS = {
-  primary: "#0066FF",
-  background: "#F6F8FC",
-  textPrimary: "#2C3E50",
-  textSecondary: "#7F8C8D",
-  white: "#FFFFFF",
-  border: "#E0E0E0",
-  success: "#1ABC9C",
-  danger: "#E74C3C",
-};
+  StyleSheet,
+} from "react-native";
+import { Ionicons, MaterialIcons, Feather } from "@expo/vector-icons";
 
 const TransactionsScreen = ({ navigation }) => {
-  const [timeRange, setTimeRange] = useState('month');
+  // Dummy summary data
+  const summary = {
+    balance: "₹45,200",
+    incoming: "₹20,000",
+    outgoing: "₹8,500",
+    invoice: "₹3,000",
+    expense: "₹2,500",
+  };
 
-  const transactions = [
+  // Dummy pending entries
+  const pendingEntries = [
     {
-      id: '1',
-      title: 'Material Purchase',
-      description: 'Construction materials',
-      amount: '$15,000',
-      date: '15 Mar 2024',
-      type: 'expense',
-      status: 'completed'
+      id: 1,
+      title: "Milk Purchase",
+      amount: "₹3,000",
+      date: "02 Nov 2025",
+      icon: "cart-outline",
+      color: "#1ABC9C",
     },
     {
-      id: '2',
-      title: 'Client Payment',
-      description: 'Project milestone payment',
-      amount: '$50,000',
-      date: '12 Mar 2024',
-      type: 'income',
-      status: 'completed'
+      id: 2,
+      title: "Farmer Payment",
+      amount: "₹1,500",
+      date: "03 Nov 2025",
+      icon: "cash-outline",
+      color: "#F39C12",
     },
     {
-      id: '3',
-      title: 'Labor Payment',
-      description: 'Weekly labor wages',
-      amount: '$8,500',
-      date: '10 Mar 2024',
-      type: 'expense',
-      status: 'completed'
-    },
-    {
-      id: '4',
-      title: 'Equipment Rental',
-      description: 'Crane rental',
-      amount: '$3,200',
-      date: '08 Mar 2024',
-      type: 'expense',
-      status: 'pending'
-    },
-    {
-      id: '5',
-      title: 'Consultant Fee',
-      description: 'Architect services',
-      amount: '$12,000',
-      date: '05 Mar 2024',
-      type: 'expense',
-      status: 'completed'
+      id: 3,
+      title: "Transport Expense",
+      amount: "₹2,000",
+      date: "04 Nov 2025",
+      icon: "car-outline",
+      color: "#E74C3C",
     },
   ];
 
-  const stats = {
-    totalIncome: '$50,000',
-    totalExpenses: '$38,700',
-    balance: '$11,300',
-  };
-
-  const TransactionItem = ({ item }) => (
-    <View style={styles.transactionItem}>
-      <View style={styles.transactionIcon}>
-        <Ionicons 
-          name={item.type === 'income' ? 'arrow-down' : 'arrow-up'} 
-          size={20} 
-          color={item.type === 'income' ? COLORS.success : COLORS.danger} 
-        />
-      </View>
-      <View style={styles.transactionContent}>
-        <Text style={styles.transactionTitle}>{item.title}</Text>
-        <Text style={styles.transactionDescription}>{item.description}</Text>
-        <Text style={styles.transactionDate}>{item.date}</Text>
-      </View>
-      <View style={styles.transactionAmount}>
-        <Text style={[
-          styles.amountText,
-          { color: item.type === 'income' ? COLORS.success : COLORS.textPrimary }
-        ]}>
-          {item.amount}
-        </Text>
-        <View style={[
-          styles.statusBadge,
-          { backgroundColor: item.status === 'completed' ? '#E8F6F3' : '#FBEEE6' }
-        ]}>
-          <Text style={[
-            styles.statusText,
-            { color: item.status === 'completed' ? COLORS.success : COLORS.warning }
-          ]}>
-            {item.status}
-          </Text>
-        </View>
-      </View>
-    </View>
-  );
-
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
-      
-      {/* Header
-      <View style={styles.header}>
-        <TouchableOpacity 
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Ionicons name="arrow-back" size={22} color="#fff" />
-        </TouchableOpacity>
-        {/* <Text style={styles.headerTitle}>Transactions</Text> */}
-        {/* <TouchableOpacity style={styles.notificationIcon}>
-          <Ionicons name="notifications-outline" size={22} color="#fff" />
-        </TouchableOpacity>
-      </View> */} 
+    <View style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#0066FF" />
 
-      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-        {/* Stats Overview */}
-        <View style={styles.statsCard}>
-          <View style={styles.statsRow}>
-            <View style={styles.statItem}>
-              <Text style={styles.statLabel}>Total Income</Text>
-              <Text style={[styles.statValue, { color: COLORS.success }]}>{stats.totalIncome}</Text>
+      {/* HEADER */}
+      {/* <View style={styles.header}>
+        <TouchableOpacity style={styles.headerIcon}>
+          <Ionicons name="arrow-back" size={24} color="#fff" />
+        </TouchableOpacity>
+
+        <Text style={styles.headerTitle}>Project Dairy Farm</Text>
+
+        <TouchableOpacity style={styles.headerIcon}>
+          <Ionicons name="notifications-outline" size={24} color="#fff" />
+        </TouchableOpacity>
+      </View> */}
+
+      {/* TABS */}
+      {/* <View style={styles.tabs}>
+        {["Details", "Tasks", "Transactions", "Attendance"].map((tab) => (
+          <TouchableOpacity
+            key={tab}
+            style={[
+              styles.tabButton,
+              tab === "Transactions" && styles.activeTabButton,
+            ]}
+          >
+            <Text
+              style={[
+                styles.tabText,
+                tab === "Transactions" && styles.activeTabText,
+              ]}
+            >
+              {tab}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View> */}
+
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 100 }}
+      >
+        {/* SUMMARY CARD */}
+        <View style={styles.summaryCard}>
+          <View style={styles.summaryRow}>
+            <View style={styles.summaryItem}>
+              <Text style={styles.summaryLabel}>Balance</Text>
+              <Text style={styles.summaryValue}>{summary.balance}</Text>
             </View>
-            <View style={styles.statItem}>
-              <Text style={styles.statLabel}>Total Expenses</Text>
-              <Text style={[styles.statValue, { color: COLORS.danger }]}>{stats.totalExpenses}</Text>
+            <View style={styles.summaryItem}>
+              <Text style={styles.summaryLabel}>Total Incoming</Text>
+              <Text style={styles.summaryValue}>{summary.incoming}</Text>
             </View>
-            <View style={styles.statItem}>
-              <Text style={styles.statLabel}>Balance</Text>
-              <Text style={styles.statValue}>{stats.balance}</Text>
+          </View>
+
+          <View style={styles.summaryRow}>
+            <View style={styles.summaryItem}>
+              <Text style={styles.summaryLabel}>Total Outgoing</Text>
+              <Text style={styles.summaryValue}>{summary.outgoing}</Text>
+            </View>
+            <View style={styles.summaryItem}>
+              <Text style={styles.summaryLabel}>Invoice</Text>
+              <Text style={styles.summaryValue}>{summary.invoice}</Text>
+            </View>
+          </View>
+
+          <View style={styles.summaryRow}>
+            <View style={styles.summaryItem}>
+              <Text style={styles.summaryLabel}>Expense</Text>
+              <Text style={styles.summaryValue}>{summary.expense}</Text>
             </View>
           </View>
         </View>
 
-        {/* Time Range Filter */}
-        <View style={styles.filterSection}>
-          <Text style={styles.sectionTitle}>Transaction History</Text>
-          <View style={styles.timeFilters}>
-            {['week', 'month', 'year'].map((range) => (
-              <TouchableOpacity
-                key={range}
-                style={[
-                  styles.timeFilter,
-                  timeRange === range && styles.timeFilterActive
-                ]}
-                onPress={() => setTimeRange(range)}
-              >
-                <Text style={[
-                  styles.timeFilterText,
-                  timeRange === range && styles.timeFilterTextActive
-                ]}>
-                  {range.charAt(0).toUpperCase() + range.slice(1)}
-                </Text>
-              </TouchableOpacity>
-            ))}
+        {/* PENDING ENTRIES */}
+        <Text style={styles.sectionTitle}>Pending Entries</Text>
+        {pendingEntries.map((entry) => (
+          <View key={entry.id} style={styles.entryCard}>
+            <View
+              style={[styles.entryIconContainer, { backgroundColor: entry.color }]}
+            >
+              <Ionicons name={entry.icon} size={20} color="#fff" />
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.entryTitle}>{entry.title}</Text>
+              <Text style={styles.entryDate}>{entry.date}</Text>
+            </View>
+            <Text style={styles.entryAmount}>{entry.amount}</Text>
           </View>
-        </View>
-
-        {/* Transactions List */}
-        <View style={styles.transactionsList}>
-          {transactions.map((transaction) => (
-            <TransactionItem key={transaction.id} item={transaction} />
-          ))}
-        </View>
-
-        {/* Bottom Spacing */}
-        <View style={styles.bottomSpacing} />
+        ))}
       </ScrollView>
 
-      {/* Add Transaction Button */}
+      {/* ADD ENTRY BUTTON */}
       <TouchableOpacity style={styles.addButton}>
-        <Ionicons name="add" size={24} color="#FFFFFF" />
+        <Text style={styles.addButtonText}>+ Add Transaction Entry</Text>
       </TouchableOpacity>
-    </SafeAreaView>
+    </View>
   );
 };
+
+export default TransactionsScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F6F8FC',
+    backgroundColor: "#F8FAFC",
   },
   header: {
-    backgroundColor: '#0066FF',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 18,
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
-  },
-  backButton: { padding: 6 },
-  headerTitle: { color: '#fff', fontSize: 18, fontWeight: '600' },
-  notificationIcon: { padding: 6 },
-  content: {
-    flex: 1,
+    backgroundColor: "#0066FF",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: 16,
-    marginTop: 16,
+    paddingTop: 50,
+    paddingBottom: 30,
+    borderBottomRightRadius: 50,
   },
-  statsCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 16,
-    padding: 20,
-    marginBottom: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+  headerIcon: {
+    padding: 6,
+  },
+  headerTitle: {
+    fontSize: 18,
+    color: "#fff",
+    fontWeight: "600",
+  },
+  tabs: {
+    flexDirection: "row",
+    backgroundColor: "#fff",
+    marginHorizontal: 16,
+    borderRadius: 12,
+    marginTop: -25,
+    elevation: 4,
+    shadowColor: "#000",
     shadowOpacity: 0.1,
     shadowRadius: 3,
-    elevation: 3,
+    shadowOffset: { width: 0, height: 1 },
   },
-  statsRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  tabButton: {
+    flex: 1,
+    paddingVertical: 10,
+    alignItems: "center",
   },
-  statItem: {
-    alignItems: 'center',
+  tabText: {
+    color: "#7F8C8D",
+    fontSize: 14,
+  },
+  activeTabButton: {
+    borderBottomWidth: 3,
+    borderBottomColor: "#0066FF",
+  },
+  activeTabText: {
+    color: "#0066FF",
+    fontWeight: "600",
+  },
+  summaryCard: {
+    backgroundColor: "#fff",
+    marginTop: 20,
+    marginHorizontal: 16,
+    borderRadius: 16,
+    padding: 16,
+    elevation: 2,
+    shadowColor: "#000",
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+  },
+  summaryRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 12,
+  },
+  summaryItem: {
     flex: 1,
   },
-  statLabel: {
-    fontSize: 12,
-    color: '#7F8C8D',
-    marginBottom: 4,
+  summaryLabel: {
+    color: "#7F8C8D",
+    fontSize: 13,
   },
-  statValue: {
+  summaryValue: {
     fontSize: 16,
-    fontWeight: '700',
-    color: '#2C3E50',
-  },
-  filterSection: {
-    marginBottom: 20,
+    fontWeight: "600",
+    color: "#2C3E50",
   },
   sectionTitle: {
     fontSize: 16,
-    fontWeight: '700',
-    color: '#2C3E50',
+    fontWeight: "600",
+    color: "#2C3E50",
+    marginHorizontal: 16,
+    marginTop: 24,
+    marginBottom: 10,
+  },
+  entryCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    marginHorizontal: 16,
     marginBottom: 12,
-  },
-  timeFilters: {
-    flexDirection: 'row',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 20,
-    padding: 4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
-  },
-  timeFilter: {
-    flex: 1,
-    paddingVertical: 8,
-    borderRadius: 16,
-    alignItems: 'center',
-  },
-  timeFilterActive: {
-    backgroundColor: '#0066FF',
-  },
-  timeFilterText: {
-    fontSize: 12,
-    fontWeight: '500',
-    color: '#7F8C8D',
-  },
-  timeFilterTextActive: {
-    color: '#FFFFFF',
-  },
-  transactionsList: {
-    marginBottom: 20,
-  },
-  transactionItem: {
-    backgroundColor: '#FFFFFF',
     borderRadius: 12,
-    padding: 16,
-    marginBottom: 8,
-    flexDirection: 'row',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
+    padding: 12,
+    elevation: 1,
+    shadowColor: "#000",
+    shadowOpacity: 0.05,
+    shadowRadius: 1,
   },
-  transactionIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: '#F1F4F8',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 12,
+  entryIconContainer: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 10,
   },
-  transactionContent: {
-    flex: 1,
+  entryTitle: {
+    fontSize: 15,
+    color: "#2C3E50",
+    fontWeight: "500",
   },
-  transactionTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#2C3E50',
-    marginBottom: 2,
-  },
-  transactionDescription: {
-    fontSize: 14,
-    color: '#7F8C8D',
-    marginBottom: 4,
-  },
-  transactionDate: {
+  entryDate: {
     fontSize: 12,
-    color: '#7F8C8D',
+    color: "#7F8C8D",
   },
-  transactionAmount: {
-    alignItems: 'flex-end',
-  },
-  amountText: {
-    fontSize: 16,
-    fontWeight: '700',
-    marginBottom: 4,
-  },
-  statusBadge: {
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    borderRadius: 8,
-  },
-  statusText: {
-    fontSize: 10,
-    fontWeight: '600',
+  entryAmount: {
+    fontSize: 15,
+    fontWeight: "600",
+    color: "#0066FF",
   },
   addButton: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 20,
-    right: 20,
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: '#0066FF',
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 5,
+    left: 16,
+    right: 16,
+    backgroundColor: "#0066FF",
+    paddingVertical: 14,
+    borderRadius: 12,
+    alignItems: "center",
+    elevation: 3,
   },
-  bottomSpacing: {
-    height: 80,
+  addButtonText: {
+    color: "#fff",
+    fontWeight: "600",
+    fontSize: 16,
   },
 });
-
-export default TransactionsScreen;

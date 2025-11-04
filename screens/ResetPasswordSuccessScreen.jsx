@@ -7,7 +7,7 @@ import Svg, { Circle, G } from 'react-native-svg';
 const Header = () => {
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor="#3B82F6" />
+      <StatusBar barStyle="light-content" backgroundColor="#0066FF" />
       <View style={styles.headerContainer}>
         <View style={styles.headerContent}>
           <Text style={styles.headerTitle}>Reset Password</Text>
@@ -53,7 +53,7 @@ const CircularProgress = ({ size = 120, strokeWidth = 4, duration = 2000 }) => {
         cx={x}
         cy={y}
         r={strokeWidth / 2}
-        fill="#3B82F6"
+        fill="#0066FF"
       />
     );
   }
@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
   },
   // Header Styles
   blueHeader: {
-    backgroundColor: '#3B82F6',
+    backgroundColor: '#0066FF',
     paddingTop: 50,
     paddingBottom: 30,
     borderBottomLeftRadius: 40,

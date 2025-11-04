@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 const Header = ({ title }) => {
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor="#3B82F6" />
+      <StatusBar barStyle="light-content" backgroundColor="#0066FF" />
       <View style={styles.headerContainer}>
         <View style={styles.headerContent}>
           <Text style={styles.headerTitle}>{title}</Text>
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
   },
   blueHeader: {
-    backgroundColor: '#3B82F6',
+    backgroundColor: '#0066FF',
     paddingTop: 50,
     paddingBottom: 30,
     borderBottomLeftRadius: 40,

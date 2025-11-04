@@ -4,7 +4,6 @@ import {
   Text,
   ScrollView,
   StyleSheet,
-  SafeAreaView,
   TouchableOpacity,
   StatusBar,
 } from "react-native";
@@ -16,7 +15,7 @@ import TasksTab from "components/Project/TasksTab";
 import TransactionsTab from "components/Project/TransactionsTab";
 import AttendanceTab from "components/Project/AttendanceTab";
 import StatusTab from "components/Project/StatusTab";
-import MidwestTab from "components/Project/MidwestTab";
+import MaterialTab from "components/Project/MaterialTab";
 import PlansTab from "components/Project/PlansTab";
 import FilesTab from "components/Project/FilesTab";
 import IssuesTab from "components/Project/IssuesTab";
@@ -41,7 +40,7 @@ const ProjectDetailsScreen = ({ navigation }) => {
     { id: "transactions", label: "Transactions" },
     { id: "attendance", label: "Attendance" },
     { id: "status", label: "Status" },
-    { id: "midwest", label: "Midwest" },
+    { id: "material", label: "Material" },
     { id: "plans", label: "Plans" },
     { id: "files", label: "Files" },
     { id: "issues", label: "Issues" },
@@ -78,8 +77,8 @@ const ProjectDetailsScreen = ({ navigation }) => {
         return <AttendanceTab />;
       case "status":
         return <StatusTab />;
-      case "midwest":
-        return <MidwestTab />;
+      case "material":
+        return <MaterialTab />;
       case "plans":
         return <PlansTab />;
       case "files":
@@ -92,7 +91,7 @@ const ProjectDetailsScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
 
       {/* HEADER */}
@@ -142,7 +141,7 @@ const ProjectDetailsScreen = ({ navigation }) => {
 
       {/* MAIN CONTENT */}
       <View style={styles.mainContent}>{renderTabContent()}</View>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -159,7 +158,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 20,
-    paddingVertical: 18,
+    paddingTop: 50, // Added padding to push content below status bar
+    paddingBottom: 18,
     borderBottomLeftRadius: 35,
     borderBottomRightRadius: 35,
     elevation: 6,
@@ -215,7 +215,6 @@ const styles = StyleSheet.create({
   mainContent: {
     flex: 1,
     backgroundColor: COLORS.background,
-    paddingBottom: 60,
   },
 });
 

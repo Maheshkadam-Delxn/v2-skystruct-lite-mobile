@@ -195,7 +195,7 @@ const SignUpScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#F5F5F5' },
   blueHeader: {
-    backgroundColor: '#3B82F6',
+    backgroundColor: '#0066FF',
     paddingTop: 50,
     paddingBottom: 30,
     borderBottomLeftRadius: 40,

@@ -27,12 +27,22 @@ import "./global.css";
 
 const Stack = createNativeStackNavigator();
 
-// ✅ SafeArea wrapper
-const SafeAreaWrapper = ({ children }) => (
-  <SafeAreaView style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
-    {children}
-  </SafeAreaView>
-);
+// ✅ Dynamic SafeArea wrapper
+const SafeAreaWrapper = ({ children, routeName }) => {
+  const whiteScreens = ['Splash1', 'Onboarding', 'Welcome'];
+  const isWhite = whiteScreens.includes(routeName);
+
+  const topColor = isWhite ? '#FFFFFF' : '#0066FF';
+  const bottomColor = '#FFFFFF';
+
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: topColor }} edges={['top']}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: bottomColor }} edges={['bottom']}>
+        {children}
+      </SafeAreaView>
+    </SafeAreaView>
+  );
+};
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -51,38 +61,44 @@ export default function App() {
     );
   }
 
+  const screens = [
+    { name: 'Splash1', component: Splash1 },
+    { name: 'Onboarding', component: Onboarding },
+    { name: 'Welcome', component: Welcome },
+    { name: 'SignIn', component: SignInScreen },
+    { name: 'SignUp', component: SignUpScreen },
+    { name: 'ResetPassword', component: ResetPasswordScreen },
+    { name: 'OTPVerification', component: OTPVerificationScreen },
+    { name: 'CreateNewPassword', component: CreateNewPasswordScreen },
+    { name: 'ResetPasswordSuccess', component: ResetPasswordSuccessScreen },
+    { name: 'Home', component: MyProjectsScreen },
+    { name: 'ProfilePageScreen', component: ProfilePageScreen },
+    { name: 'CreateProject', component: CreateProjectScreen },
+    { name: 'ProjectDetails', component: ProjectDetailsScreen },
+  ];
+
   return (
     <SafeAreaProvider>
-      <SafeAreaWrapper>
-        <NavigationContainer>
-          <Stack.Navigator
-            initialRouteName="Splash1"
-            screenOptions={{ headerShown: false }}
-          >
-            {/* Auth & Intro screens */}
-            <Stack.Screen name="Splash1" component={Splash1} />
-            <Stack.Screen name="Onboarding" component={Onboarding} />
-            <Stack.Screen name="Welcome" component={Welcome} />
-            <Stack.Screen name="SignIn" component={SignInScreen} />
-            <Stack.Screen name="SignUp" component={SignUpScreen} />
-            <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
-            <Stack.Screen name="OTPVerification" component={OTPVerificationScreen} />
-            <Stack.Screen name="CreateNewPassword" component={CreateNewPasswordScreen} />
-            <Stack.Screen name="ResetPasswordSuccess" component={ResetPasswordSuccessScreen} />
-
-            {/* Main App Screens */}
-            <Stack.Screen name="Home" component={MyProjectsScreen} />
-            <Stack.Screen name="ProfilePageScreen" component={ProfilePageScreen} />
-            <Stack.Screen name="CreateProject" component={CreateProjectScreen} />
-            
-            {/* Project Management Screens */}
-            <Stack.Screen name="ProjectDetails" component={ProjectDetailsScreen} />
-            {/* <Stack.Screen name="TasksScreen" component={TasksScreen} />
-            <Stack.Screen name="TransactionsScreen" component={TransactionsScreen} />
-            <Stack.Screen name="AttendanceScreen" component={AttendanceScreen} /> */}
-          </Stack.Navigator>
-        </NavigationContainer>
-      </SafeAreaWrapper>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="Splash1"
+          screenOptions={{ headerShown: false }}
+        >
+          {screens.map((screen) => (
+            <Stack.Screen
+              key={screen.name}
+              name={screen.name}
+              options={{ headerShown: false }}
+            >
+              {(props) => (
+                <SafeAreaWrapper routeName={screen.name}>
+                  <screen.component {...props} />
+                </SafeAreaWrapper>
+              )}
+            </Stack.Screen>
+          ))}
+        </Stack.Navigator>
+      </NavigationContainer>
     </SafeAreaProvider>
   );
 }
