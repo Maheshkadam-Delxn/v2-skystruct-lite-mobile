@@ -68,3 +68,35 @@
 // };
 
 // export default Header;
+
+// import React from 'react';
+// import { View, Text, StyleSheet } from 'react-native';
+// import { SafeAreaView } from 'react-native-safe-area-context';
+
+// const Header = () => {
+//   return (
+//     <SafeAreaView edges={['top']} style={styles.header}>
+//       <View style={styles.headerContent}>
+//         <Text style={styles.headerText}>Your App Name</Text>
+//         {/* Add your header content here */}
+//       </View>
+//     </SafeAreaView>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   header: {
+//     backgroundColor: '#FFFFFF',
+//   },
+//   headerContent: {
+//     paddingHorizontal: 24,
+//     paddingVertical: 16,
+//   },
+//   headerText: {
+//     fontSize: 18,
+//     fontWeight: 'bold',
+//     color: '#111827',
+//   },
+// });
+
+// export { Header };
